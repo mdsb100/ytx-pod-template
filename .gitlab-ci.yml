@@ -1,0 +1,32 @@
+before_script:
+  - pod --version
+
+stages:
+  - test
+  - lint
+
+test:
+  tags:
+    - iOS
+  only:
+    - master
+  stage: test
+  script:
+    - YTX_PROJECT_NAME=${PWD##*/}
+    - cd Example
+    - pwd
+    - pod install --verbose
+    - xcodebuild test -workspace $YTX_PROJECT_NAME.xcworkspace -scheme $YTX_PROJECT_NAME-Example -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.3' | xcpretty
+
+lint:
+  tags:
+    - iOS
+  only:
+    - master
+  stage: lint
+  script:
+    - cd Example
+    - pwd
+    - pod install --verbose
+    - cd ..
+    - ./lint.sh

@@ -21,16 +21,40 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://github.com/<GITHUB_USERNAME>/${POD_NAME}'
+  s.homepage         = 'http://gitlab.baidao.com/ios/${POD_NAME}'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { '${USER_NAME}' => '${USER_EMAIL}' }
-  s.source           = { :git => 'https://github.com/<GITHUB_USERNAME>/${POD_NAME}.git', :tag => s.version.to_s }
+  s.source           = { :git => 'http://gitlab.baidao.com/ios/${POD_NAME}.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '7.0'
 
   s.source_files = '${POD_NAME}/Classes/**/*'
+
+  if ENV['IS_SOURCE'] || ENV["#{s.name}_SOURCE"]
+      puts '-------------------------------------------------------------------'
+      puts "Notice:#{s.name} is source now"
+      puts '-------------------------------------------------------------------'
+      s.source_files = '${POD_NAME}/Classes/**/*'
+  else
+      puts '-------------------------------------------------------------------'
+      puts "Notice:#{s.name} is binary now"
+      puts '-------------------------------------------------------------------'
+      s.source_files = '${POD_NAME}/Classes/*.h'
+      s.public_header_files = '${POD_NAME}/Classes/*.h'
+      s.ios.vendored_libraries = "${POD_NAME}/lib/lib#{s.name}.a"
+  end
+
+  if ENV['NO_DEPENDENCY']
+      puts '-------------------------------------------------------------------'
+      puts "Notice:#{s.name} no dependency now"
+      puts '-------------------------------------------------------------------'
+  else
+      puts '-------------------------------------------------------------------'
+      puts "Notice:#{s.name} has dependency now"
+      puts '-------------------------------------------------------------------'
+  end
   
   # s.resource_bundles = {
   #   '${POD_NAME}' => ['${POD_NAME}/Assets/*.png']
