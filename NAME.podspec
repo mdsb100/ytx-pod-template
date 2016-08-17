@@ -30,8 +30,6 @@ TODO: Add long description of the pod here.
 
   s.ios.deployment_target = '7.0'
 
-  s.source_files = '${POD_NAME}/Classes/**/*'
-
   if ENV['IS_SOURCE'] || ENV["#{s.name}_SOURCE"]
       puts '-------------------------------------------------------------------'
       puts "Notice:#{s.name} is source now"
