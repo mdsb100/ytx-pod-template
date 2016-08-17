@@ -4,13 +4,13 @@ POD_NAME=$1
 
 if [[ ! $POD_NAME ]]; then
 	echo "pod cache clean --all"
-	cd YtxMobile
+	cd Example
 	rm -rf Pods
 	pod cache clean --all
 	echo "pod install"
 	pod install
 else
-	cd YtxMobile/Pods
+	cd Example/Pods
 	DIRNAME=$(ls -l | grep ^d | grep -o ${POD_NAME})
 	if [[ ! $DIRNAME ]]; then
 		echo "Pod name is error, Please re operate！"
