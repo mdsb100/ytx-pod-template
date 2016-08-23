@@ -9,4 +9,8 @@ pod repo push baidao-ios-ytx-pod-specs $PROJECT_NAME.podspec --verbose
 
 ret=$?
 
+if [ "$?" -eq "0" ];then
+	./zip.sh
+fi
+
 exit $ret
