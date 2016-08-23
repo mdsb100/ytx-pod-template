@@ -4,7 +4,7 @@ if [ -f $PROJECT_NAME.zip ]; then
 	rm -fr $PROJECT_NAME.zip
 fi
 
-zip -r ./$PROJECT_NAME.zip ./Pod/*
+zip -r ./$PROJECT_NAME.zip ./$PROJECT_NAME/*
 
 if [ "$?" -eq "0" ];then
 	echo "pack file $CUR_FILE into $PROJECT_NAME.zip file ok~!"
