@@ -10,6 +10,10 @@ echo "The branch of $APP_NAME is '$NOW_BRANCH'. It will update app podfile at sa
 
 if [ ! -d "$APP_NAME" ]; then
   git clone http://gitlab.baidao.com/pb/PBApp.git
+else
+  cd PBApp
+  git pull
+  cd ..
 fi
 
 CURRENT_POD_VERSION=$(cat $PROJECT_NAME.podspec | grep -o '[0-9]*\.[0-9]*\.[0-9]*')
