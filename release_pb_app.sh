@@ -1,3 +1,4 @@
+
 PROJECT_NAME=${PWD##*/}
 
 APP_NAME="PBApp"
@@ -31,7 +32,9 @@ cat $APP_PATH
 
 cd PBApp/workspace
 
-git checkout master
+BRANCH_NAME=CIPodfileUpdpateWith$PROJECT_NAME@$CURRENT_POD_VERSION
+
+git checkout -b $BRANCH_NAME
 
 pod repo update baidao-ios-ytx-pod-specs
 
@@ -46,4 +49,10 @@ fi
 git commit -am "Update podfile by CI: $ORIGIN_POD_VALUE ---> $NEW_POD_VALUE"
 git push
 
-cd ../..
+cd ..
+
+if [[ -f "merge_request.sh" ]]; then
+	sh merge_request.sh "CI Update Podfile $PROJECT_NAME@$CURRENT_POD_VERSION" dev
+fi
+
+cd ..
