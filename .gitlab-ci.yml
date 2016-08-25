@@ -1,5 +1,6 @@
 before_script:
   - pod --version
+  - pod repo update baidao-ios-ytx-pod-specs
 
 stages:
   - test
@@ -16,8 +17,8 @@ test:
     - YTX_PROJECT_NAME=${PWD##*/}
     - cd Example
     - pwd
-    - pod install --verbose
-    - xcodebuild test -workspace $YTX_PROJECT_NAME.xcworkspace -scheme $YTX_PROJECT_NAME-Example -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.3' | xcpretty
+    - time pod install --verbose
+    - time xcodebuild test -workspace $YTX_PROJECT_NAME.xcworkspace -scheme $YTX_PROJECT_NAME-Example -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.3' | xcpretty
 
 release:
   tags:
@@ -26,10 +27,10 @@ release:
     - master
   stage: release
   script:
-    - sh pod_package.sh
-    - sh lint.sh
-    - sh buildpod.sh
-    - sh release_pb_app.sh
+    - time sh pod_package.sh
+    - time sh lint.sh
+    - time sh buildpod.sh
+    - time sh release_pb_app.sh
 
 lint:
   tags:
@@ -38,5 +39,5 @@ lint:
   except:
     - master
   script:
-    - sh pod_package.sh
-    - sh lint.sh
+    - time sh pod_package.sh
+    - time sh lint.sh
