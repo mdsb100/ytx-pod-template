@@ -10,8 +10,6 @@ stages:
 test:
   tags:
     - iOS
-  only:
-    - master
   stage: test
   script:
     - YTX_PROJECT_NAME=${PWD##*/}
