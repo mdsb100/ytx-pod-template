@@ -5,7 +5,7 @@ SCRIPT_DIR=$(pwd -L)
 popd > /dev/null
 
 echo "publish repo YTXRequest"
-pod repo push baidao-ios-ytx-pod-specs $PROJECT_NAME.podspec --verbose
+pod repo push baidao-ios-ytx-pod-specs $PROJECT_NAME.podspec --verbose --use-libraries
 
 ret=$?
 
