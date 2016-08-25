@@ -21,3 +21,8 @@ fi
 
 sshpass -p "111111" scp $PROJECT_NAME.zip binaryadmin@gitlab.baidao.com:/opt/binaryfiles/
 
+ret=$?
+
+if [ "$ret" -ne "0" ];then
+	exit 1
+fi

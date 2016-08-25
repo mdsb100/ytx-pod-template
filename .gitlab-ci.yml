@@ -27,6 +27,7 @@ release:
   script:
     - time sh pod_package.sh
     - time sh lint.sh
+    - time sh zip.sh
     - time sh buildpod.sh
     - time sh release_pb_app.sh
 
