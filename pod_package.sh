@@ -4,6 +4,11 @@ PROJECT_NAME=${PWD##*/}
 
 IS_SOURCE=1 pod package ${PROJECT_NAME}.podspec --exclude-deps --no-mangle --library --spec-sources=http://gitlab.baidao.com/ios/ytx-pod-specs.git,https://github.com/CocoaPods/Specs.git
 
+ret=$?
+if [ "$ret" -ne "0" ];then
+	exit 1
+fi
+
 BINARY_DIR=$(ls -l | grep ^d | grep -o "${PROJECT_NAME}-.*")
 cp -rp $BINARY_DIR/ios/ $PROJECT_NAME/lib
 

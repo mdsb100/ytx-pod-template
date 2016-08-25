@@ -1,8 +1,0 @@
-#!/usr/bin/expect -f
-set ZIPNAME [lindex $argv 0]
-spawn scp $ZIPNAME.zip binaryadmin@gitlab.baidao.com:/opt/binaryfiles/
-set timeout 20
-expect "binaryadmin@gitlab.baidao.com's password:"
-exec sleep 1
-send "111111\r"
-interact

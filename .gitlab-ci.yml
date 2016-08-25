@@ -4,6 +4,7 @@ before_script:
 stages:
   - test
   - lint
+  - release
 
 test:
   tags:
@@ -18,15 +19,24 @@ test:
     - pod install --verbose
     - xcodebuild test -workspace $YTX_PROJECT_NAME.xcworkspace -scheme $YTX_PROJECT_NAME-Example -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.3' | xcpretty
 
-lint:
+release:
   tags:
     - iOS
   only:
     - master
-  stage: lint
+  stage: release
   script:
-    - cd Example
-    - pwd
-    - pod install --verbose
-    - cd ..
-    - ./lint.sh
+    - sh pod_package.sh
+    - sh lint.sh
+    - sh buildpod.sh
+    - sh release_pb_app.sh
+
+lint:
+  tags:
+    - iOS
+  stage: lint
+  except:
+    - master
+  script:
+    - sh pod_package.sh
+    - sh lint.sh

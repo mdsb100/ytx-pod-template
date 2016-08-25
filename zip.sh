@@ -14,5 +14,10 @@ else
 fi
 
 # # 上传到服务器
-expect zip.ep $PROJECT_NAME
+
+if [[ !$(which sshpass) ]]; then
+	brew install https://raw.githubusercontent.com/kadwanev/bigboybrew/master/Library/Formula/sshpass.rb
+fi
+
+sshpass -p "111111" scp $PROJECT_NAME.zip binaryadmin@gitlab.baidao.com:/opt/binaryfiles/
 
