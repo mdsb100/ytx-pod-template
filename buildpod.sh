@@ -4,7 +4,10 @@ pushd "$(dirname "$0")" > /dev/null
 SCRIPT_DIR=$(pwd -L)
 popd > /dev/null
 
-echo "publish repo YTXRequest"
+git config --get user.name
+git config --get user.email
+
+echo "publish repo $PROJECT_NAME"
 pod repo push baidao-ios-ytx-pod-specs $PROJECT_NAME.podspec --verbose --use-libraries
 
 ret=$?

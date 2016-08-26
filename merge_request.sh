@@ -2,8 +2,8 @@ sh cleanBranch.sh
 
 PROJECT_NAME=${PWD##*/}
 
-if [[ !$(which gitlab) ]]; then
-	npm install -g gitlab
+if [[ ! $(which gitlab) ]]; then
+	sudo npm install -g gitlab
 fi
 
 JSON_RESULT=$(gitlab projects --filter "item.path=='$PROJECT_NAME'")
@@ -34,7 +34,15 @@ TARGET_BRANCH='master'
 
 echo "target branch is '$TARGET_BRANCH'"
 
-BRANCH=$(git rev-parse --abbrev-ref HEAD)
+CURRENT_POD_VERSION=$(cat $PROJECT_NAME.podspec | grep 's.version' | grep -o '[0-9]*\.[0-9]*\.[0-9]*')
+
+BRANCH="FeatureNewVersion@$CURRENT_POD_VERSION"
+
+echo $BRANCH
+
+git checkout -b $BRANCH
+
+git push --set-upstream origin $BRANCH
 
 MERGE_REQUEST_URL=${URL}"/api/v3/projects/$PROJECT_ID/merge_requests"
 
@@ -42,4 +50,4 @@ MERGE_REQUEST_PARAM="-F id=$PROJECT_ID -F source_branch=$BRANCH -F target_branch
 
 curl -X POST -H "PRIVATE-TOKEN: ${TOKEN}" $MERGE_REQUEST_PARAM $MERGE_REQUEST_URL
 
-# gitlab addMergeRequest $PROJECT_ID $BRANCH $TARGET_BRANCH 9 $TITLE
+gitlab addMergeRequest $PROJECT_ID $BRANCH $TARGET_BRANCH 9 $TITLE

@@ -15,7 +15,7 @@ fi
 
 # # 上传到服务器
 
-if [[ !$(which sshpass) ]]; then
+if [[ ! $(which sshpass) ]]; then
 	brew install https://raw.githubusercontent.com/kadwanev/bigboybrew/master/Library/Formula/sshpass.rb
 fi
 

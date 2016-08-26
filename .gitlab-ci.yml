@@ -1,42 +1,76 @@
 before_script:
   - pod --version
-  - pod repo update baidao-ios-ytx-pod-specs
+
+cache:
+  paths:
+    - $CI_PROJECT_NAME/lib
 
 stages:
+  - init
+  - package
   - test
   - lint
-  - release
+  - releasepod
+  - updateapp
+
+init:
+  tags:
+    - iOS
+  stage: init
+  script:
+    - pod repo update baidao-ios-ytx-pod-specs
+    - pod cache clean --all
+    - git config --get user.name
+    - git config --get user.email
+    - echo "CI_RUNNER_ID $CI_RUNNER_ID"
+    - echo "CI_RUNNER_DESCRIPTION $CI_RUNNER_DESCRIPTION"
+    - echo "CI_PROJECT_PATH $CI_PROJECT_PATH"
+    - echo "CI_PROJECT_URL $CI_PROJECT_URL"
+    - echo "CI_PROJECT_DIR $CI_PROJECT_DIR"
+    - echo "CI_PROJECT_NAME $CI_PROJECT_NAME"
+
+package:
+  tags:
+    - iOS
+  stage: package
+  script:
+    - find ./$CI_PROJECT_NAME/ -regex '.*\.a'
+    - time sh pod_package.sh  
 
 test:
   tags:
     - iOS
   stage: test
   script:
-    - YTX_PROJECT_NAME=${PWD##*/}
     - cd Example
     - pwd
-    - time pod install --verbose
-    - time xcodebuild test -workspace $YTX_PROJECT_NAME.xcworkspace -scheme $YTX_PROJECT_NAME-Example -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.3' | xcpretty
-
-release:
-  tags:
-    - iOS
-  only:
-    - master
-  stage: release
-  script:
-    - time sh pod_package.sh
-    - time sh lint.sh
-    - time sh zip.sh
-    - time sh buildpod.sh
-    - time sh release_pb_app.sh
+    - time IS_SOURCE=1 pod install --verbose
+    - time xcodebuild test -workspace $CI_PROJECT_NAME.xcworkspace -scheme $CI_PROJECT_NAME-Example -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.3' | xcpretty
 
 lint:
   tags:
     - iOS
   stage: lint
-  except:
-    - master
   script:
-    - time sh pod_package.sh
+    - find ./$CI_PROJECT_NAME/ -regex '.*\.a'
     - time sh lint.sh
+
+releasepod:
+  tags:
+    - iOS
+  only:
+    - master
+  stage: releasepod
+  script:
+    - find ./$CI_PROJECT_NAME/ -regex '.*\.a'
+    - time sh zip.sh
+    - time sh buildpod.sh
+
+updateapp:
+  tags:
+    - iOS
+  only:
+    - master
+  stage: updateapp
+  script:
+    - time sh release_pb_app.sh

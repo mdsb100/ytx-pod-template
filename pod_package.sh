@@ -5,6 +5,7 @@ PROJECT_NAME=${PWD##*/}
 IS_SOURCE=1 pod package ${PROJECT_NAME}.podspec --exclude-deps --no-mangle --library --spec-sources=http://gitlab.baidao.com/ios/ytx-pod-specs.git,https://github.com/CocoaPods/Specs.git
 
 ret=$?
+
 if [ "$ret" -ne "0" ];then
 	exit 1
 fi
@@ -18,6 +19,15 @@ rm -rf $BINARY_DIR
 cd $PROJECT_NAME/lib
 
 lipo "lib${PROJECT_NAME}.a" -remove armv7s -remove i386 -output "lib${PROJECT_NAME}.a"
+# lipo "lib${PROJECT_NAME}.a" -thin armv7 -output "lib${PROJECT_NAME}-armv7.a"
+# lipo "lib${PROJECT_NAME}.a" -thin x86_64 -output "lib${PROJECT_NAME}-x86_64.a"
+
+# lipo -create "lib${PROJECT_NAME}-arm64.a" "lib${PROJECT_NAME}-armv7.a" "lib${PROJECT_NAME}-x86_64.a" -output "lib${PROJECT_NAME}${SUBSPEC_NAME}.a"
+
+# rm -rf "lib${PROJECT_NAME}-arm64.a"
+# rm -rf "lib${PROJECT_NAME}-armv7.a"
+# rm -rf "lib${PROJECT_NAME}-x86_64.a"
+# rm -rf "lib${PROJECT_NAME}.a"
 
 lipo -info "lib${PROJECT_NAME}.a"
 echo "copy Success"
