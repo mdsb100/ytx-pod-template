@@ -50,6 +50,8 @@ test:
 lint:
   tags:
     - iOS
+  only:
+    - master
   stage: lint
   script:
     - find ./$CI_PROJECT_NAME/ -regex '.*\.a'
