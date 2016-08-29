@@ -4,7 +4,6 @@ before_script:
 stages:
   - init
   - package
-  - test
   - lint
   - releasepod
   - updateapp
@@ -28,10 +27,12 @@ init:
 package:
   tags:
     - iOS
+  stage: package
+  only:
+    - master
   artifacts:
     paths:
       - $CI_PROJECT_NAME/lib
-  stage: package
   script:
     - find ./$CI_PROJECT_NAME/ -regex '.*\.a'
     - time sh pod_package.sh  
@@ -39,7 +40,7 @@ package:
 test:
   tags:
     - iOS
-  stage: test
+  stage: lint
   script:
     - cd Example
     - pwd
@@ -49,9 +50,9 @@ test:
 lint:
   tags:
     - iOS
+  stage: lint
   only:
     - master
-  stage: lint
   script:
     - find ./$CI_PROJECT_NAME/ -regex '.*\.a'
     - time sh lint.sh
