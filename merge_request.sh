@@ -2,6 +2,8 @@ sh cleanBranch.sh
 
 PROJECT_NAME=${PWD##*/}
 
+ORIGIN_BRANCH=$(git branch)
+
 if [[ ! $(which gitlab) ]]; then
 	sudo npm install -g gitlab
 fi
@@ -51,3 +53,5 @@ MERGE_REQUEST_PARAM="-F id=$PROJECT_ID -F source_branch=$BRANCH -F target_branch
 curl -X POST -H "PRIVATE-TOKEN: ${TOKEN}" $MERGE_REQUEST_PARAM $MERGE_REQUEST_URL
 
 gitlab addMergeRequest $PROJECT_ID $BRANCH $TARGET_BRANCH 9 $TITLE
+
+git checkout $ORIGIN_BRANCH
