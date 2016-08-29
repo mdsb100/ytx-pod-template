@@ -1,10 +1,6 @@
 before_script:
   - pod --version
 
-cache:
-  paths:
-    - $CI_PROJECT_NAME/lib
-
 stages:
   - init
   - package
@@ -32,6 +28,9 @@ init:
 package:
   tags:
     - iOS
+  artifacts:
+    paths:
+      - $CI_PROJECT_NAME/lib
   stage: package
   script:
     - find ./$CI_PROJECT_NAME/ -regex '.*\.a'
