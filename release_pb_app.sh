@@ -50,17 +50,17 @@ BRANCH_NAME=CIPodfileUpdpateWith$PROJECT_NAME@$CURRENT_POD_VERSION
 
 git checkout -b $BRANCH_NAME
 
-pod repo update baidao-ios-ytx-pod-specs
+# pod repo update baidao-ios-ytx-pod-specs
 
-rm Podfile.lock
+# rm Podfile.lock
 
-if [[ $(which podh) ]]; then
-	echo 'podh install'
-	podh install
-else
-	echo 'pod install'
-	pod install
-fi
+# if [[ $(which podh) ]]; then
+# 	echo 'podh install'
+# 	podh install
+# else
+# 	echo 'pod install'
+# 	pod install
+# fi
 
 git config --get user.name 
 git config --get user.email
