@@ -2,7 +2,7 @@ sh cleanBranch.sh
 
 PROJECT_NAME=${PWD##*/}
 
-ORIGIN_BRANCH=$(git branch)
+ORIGIN_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
 if [[ ! $(which gitlab) ]]; then
 	sudo npm install -g gitlab
