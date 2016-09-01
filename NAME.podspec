@@ -30,7 +30,19 @@ TODO: Add long description of the pod here.
 
   s.ios.deployment_target = '7.0'
 
+  zipURL='http://gitlab.baidao.com/binaryfiles/${POD_NAME}.zip'
+
   if ENV['IS_SOURCE'] || ENV["#{s.name}_SOURCE"]
+      s.source           = { :git => 'http://gitlab.baidao.com/ios/${POD_NAME}.git', :tag => s.version.to_s }
+  else
+      s.source           = { :http => zipURL}
+  end
+
+  if ENV['IS_SOURCE'] || ENV["#{s.name}_SOURCE"]
+      s.prepare_command = <<-'END'
+        test -f download_zip.sh && sh download_zip.sh ${POD_NAME}
+      END
+
       puts '-------------------------------------------------------------------'
       puts "Notice:#{s.name} is source now"
       puts '-------------------------------------------------------------------'
@@ -43,6 +55,7 @@ TODO: Add long description of the pod here.
       s.public_header_files = '${POD_NAME}/Classes/*.h'
       s.ios.vendored_libraries = "${POD_NAME}/lib/lib#{s.name}.a"
   end
+  s.preserve_paths = "#{s.name}/lib/lib#{s.name}.a","#{s.name}/Classes/**/*", "download_zip.sh"
 
   if ENV['NO_DEPENDENCY']
       puts '-------------------------------------------------------------------'
