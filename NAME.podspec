@@ -30,12 +30,12 @@ TODO: Add long description of the pod here.
 
   s.ios.deployment_target = '7.0'
 
-  zipURL='http://gitlab.baidao.com/binaryfiles/${POD_NAME}.zip'
+  ytx_zipURL='http://gitlab.baidao.com/binaryfiles/${POD_NAME}.zip'
 
   if ENV['IS_SOURCE'] || ENV["#{s.name}_SOURCE"]
       s.source           = { :git => 'http://gitlab.baidao.com/ios/${POD_NAME}.git', :tag => s.version.to_s }
   else
-      s.source           = { :http => zipURL}
+      s.source           = { :http => ytx_zipURL}
   end
 
   if ENV['IS_SOURCE'] || ENV["#{s.name}_SOURCE"]
