@@ -6,7 +6,6 @@ if [[ ! $POD_NAME ]]; then
 	echo "pod cache clean --all"
 	cd Example
 	rm -rf Pods
-	pod cache clean --all
 	echo "pod install"
 	pod install
 else
@@ -20,7 +19,6 @@ else
 		rm -rf '$POD_NAME'
  	    rm -rf Pods.xcodeproj 
  	    cd ..
- 	    pod cache clean -$POD_NAME
  	    echo "pod install"
  	    pod install	
 	fi
