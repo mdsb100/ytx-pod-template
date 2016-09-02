@@ -16,7 +16,11 @@ if [[ ! -d ytxtemp ]]; then
 fi
 cd ytxtemp
 curl -O -v $URL
-unzip $PROJECT_NAME.zip
-cp -fr $PROJECT_NAME/lib ../$PROJECT_NAME/
+
+if [[ -f $PROJECT_NAME.zip ]]; then
+	unzip $PROJECT_NAME.zip
+	cp -fr $PROJECT_NAME/lib ../$PROJECT_NAME/
+fi
+
 cd ..
 rm -fr ytxtemp
