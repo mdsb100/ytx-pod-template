@@ -25,15 +25,14 @@ TODO: Add long description of the pod here.
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { '${USER_NAME}' => '${USER_EMAIL}' }
-  s.source           = { :git => 'http://gitlab.baidao.com/ios/${POD_NAME}.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '7.0'
 
-  ytx_zipURL='http://gitlab.baidao.com/binaryfiles/${POD_NAME}.zip'
+  ytx_zipURL="http://gitlab.baidao.com/binaryfiles/#{s.name}.zip"
 
   if ENV['IS_SOURCE'] || ENV["#{s.name}_SOURCE"]
-      s.source           = { :git => 'http://gitlab.baidao.com/ios/${POD_NAME}.git', :tag => s.version.to_s }
+      s.source           = { :git => "http://gitlab.baidao.com/ios/#{s.name}.git", :tag => s.version.to_s }
   else
       s.source           = { :http => ytx_zipURL}
   end
