@@ -8,7 +8,7 @@ fi
 
 if [[ ! $URL ]]; then
 	URL_KEY="ytx_zipURL="
-	URL=$(cat $PROJECT_NAME.podspec | grep "$URL_KEY" | sed -e "s/$URL_KEY//g" | sed -e "s/\'//g")
+	URL=$(cat $PROJECT_NAME.podspec | grep "$URL_KEY" | sed -e "s/$URL_KEY//g" | sed -e "s/\'//g" | sed -e "s/\"//g")
 fi
 
 if [[ ! -d ytxtemp ]]; then
