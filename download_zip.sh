@@ -1,5 +1,5 @@
-PROJECT_NAME=${PWD##*/}
-URL=$1
+PROJECT_NAME=$1
+URL=$2
 
 if [[ -f $PROJECT_NAME/lib/lib$PROJECT_NAME.a ]]; then
 	echo "$PROJECT_NAME/lib/lib$PROJECT_NAME.a Exist"
