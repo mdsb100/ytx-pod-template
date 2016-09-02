@@ -3,7 +3,6 @@ PROJECT_NAME=${PWD##*/}
 POD_NAME=$1
 
 if [[ ! $POD_NAME ]]; then
-	echo "pod cache clean --all"
 	cd Example
 	rm -rf Pods
 	echo "pod install"
