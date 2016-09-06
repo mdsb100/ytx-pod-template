@@ -46,11 +46,11 @@ git checkout -b $BRANCH
 
 git push --set-upstream origin $BRANCH
 
-MERGE_REQUEST_URL=${URL}"/api/v3/projects/$PROJECT_ID/merge_requests"
+# MERGE_REQUEST_URL=${URL}"/api/v3/projects/$PROJECT_ID/merge_requests"
 
-MERGE_REQUEST_PARAM="-F id=$PROJECT_ID -F source_branch=$BRANCH -F target_branch=$TARGET_BRANCH -F assignee_id=9 -F title=$TITLE"
+# MERGE_REQUEST_PARAM="-F id=$PROJECT_ID -F source_branch=$BRANCH -F target_branch=$TARGET_BRANCH -F assignee_id=9 -F title=$TITLE"
 
-curl -X POST -H "PRIVATE-TOKEN: ${TOKEN}" $MERGE_REQUEST_PARAM $MERGE_REQUEST_URL
+# curl -X POST -H "PRIVATE-TOKEN: ${TOKEN}" $MERGE_REQUEST_PARAM $MERGE_REQUEST_URL
 
 gitlab addMergeRequest $PROJECT_ID $BRANCH $TARGET_BRANCH 9 $TITLE
 
