@@ -4,7 +4,6 @@ APP_NAME="PBApp"
 
 APP_PATH="$APP_NAME/workspace/Podfile"
 
-NOW_BRANCH=$(git branch)
 
 if [ ! -d "$APP_NAME" ]; then
   git clone git@gitlab.baidao.com:pb/PBApp.git
