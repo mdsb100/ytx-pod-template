@@ -15,6 +15,7 @@ git pull
 cd ..
 
 CURRENT_POD_VERSION=$(cat $PROJECT_NAME.podspec | grep 's.version' | grep -o '[0-9]*\.[0-9]*\.[0-9]*')
+CURRENT_POD_URL=$(cat $PROJECT_NAME.podspec | grep 's.homepage' | grep -o "'.*'" | sed "s/'//g")
 
 echo "This current version is $CURRENT_POD_VERSION"
 
@@ -70,7 +71,7 @@ ls -l
 
 if [[ -f "merge_request.sh" ]]; then
 	echo "Try to Add merge_request with PBApp"
-	sh merge_request.sh "CI Update Podfile $PROJECT_NAME@$CURRENT_POD_VERSION" dev
+	sh merge_request.sh "CI_Update_Podfile_$PROJECT_NAME@$CURRENT_POD_VERSION" dev "$CURRENT_POD_URL/merge_requests?scope=all&state=merged"
 fi
 
 cd ..
