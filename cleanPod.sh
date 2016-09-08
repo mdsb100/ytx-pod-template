@@ -6,7 +6,7 @@ if [[ ! $POD_NAME ]]; then
 	cd Example
 	rm -rf Pods
 	echo "pod install"
-	pod install
+	IS_SOURCE=1 pod install
 else
 	cd Example/Pods
 	DIRNAME=$(ls -l | grep ^d | grep -o ${POD_NAME})
@@ -19,6 +19,6 @@ else
  	    rm -rf Pods.xcodeproj 
  	    cd ..
  	    echo "pod install"
- 	    pod install	
+ 	    IS_SOURCE=1 pod install	
 	fi
 fi
