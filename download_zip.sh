@@ -15,9 +15,9 @@ if [[ ! -d ytxtemp ]]; then
 	mkdir ytxtemp
 fi
 cd ytxtemp
-curl -O -v $URL
 
-if [[ -f $PROJECT_NAME.zip ]]; then
+RET=$(curl --fail -O -v $URL)
+if [[ -f $PROJECT_NAME.zip && ! $RET ]]; then
 	unzip $PROJECT_NAME.zip
 	cp -fr $PROJECT_NAME/lib ../$PROJECT_NAME/
 fi
