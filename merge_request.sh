@@ -1,5 +1,7 @@
 sh cleanBranch.sh
 
+git merge master
+
 PROJECT_NAME=${PWD##*/}
 
 ORIGIN_BRANCH=$(git rev-parse --abbrev-ref HEAD)
