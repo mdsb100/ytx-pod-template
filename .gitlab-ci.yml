@@ -44,7 +44,7 @@ test:
     - cd Example
     - pwd
     - time IS_SOURCE=1 pod install --verbose
-    - time xcodebuild test -workspace $CI_PROJECT_NAME.xcworkspace -scheme $CI_PROJECT_NAME-Example -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.3' | xcpretty
+    - time xcodebuild test -workspace $CI_PROJECT_NAME.xcworkspace -scheme $CI_PROJECT_NAME-Example -destination 'platform=iOS Simulator,name=iPhone 6,OS=10.0' | xcpretty
 
 lint:
   tags:
