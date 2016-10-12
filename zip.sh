@@ -19,7 +19,7 @@ if [[ ! $(which sshpass) ]]; then
 	brew install https://raw.githubusercontent.com/kadwanev/bigboybrew/master/Library/Formula/sshpass.rb
 fi
 
-sshpass -p "111111" scp $PROJECT_NAME.zip binaryadmin@gitlab.baidao.com:/opt/binaryfiles/
+sshpass -p "111111" scp $PROJECT_NAME.zip binaryadmin@ios-pod.baidao.com:/opt/binaryfiles/
 
 ret=$?
 
