@@ -46,7 +46,7 @@ test:
     - time IS_SOURCE=1 pod install --verbose
     - time xcodebuild test -workspace $CI_PROJECT_NAME.xcworkspace -scheme $CI_PROJECT_NAME-Example -destination 'platform=iOS Simulator,name=iPhone 6,OS=9.3' | xcpretty
 
-lint:
+lint_source:
   tags:
     - iOS
   stage: lint
@@ -54,7 +54,17 @@ lint:
     - master
   script:
     - find ./$CI_PROJECT_NAME/ -regex '.*\.a'
-    - time sh lint.sh
+    - time sh lint_source.sh
+
+lint_binary:
+  tags:
+    - iOS
+  stage: lint
+  only:
+    - master
+  script:
+    - find ./$CI_PROJECT_NAME/ -regex '.*\.a'
+    - time sh lint_binary.sh
 
 releasepod:
   tags:
