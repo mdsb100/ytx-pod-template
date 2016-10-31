@@ -1,6 +1,9 @@
 pod-template
 ============
 
+##Useage
+pod lib create <Pod库名称> --template-url="git@github.com:mdsb100/ytx-pod-template"
+
 An opinionated template for creating a Pod with the following features:
 
 - Git as the source control management system
