@@ -40,6 +40,8 @@ test:
   tags:
     - iOS
   stage: lint
+  except:
+    - master
   script:
     - cd Example
     - pwd
